@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.NavButton {
+  @apply relative py-2 px-8 text-black text-base font-medium overflow-hidden bg-white rounded-full 
+         transition-all duration-300 ease-in-out shadow-md hover:scale-105 hover:text-white 
+         hover:shadow-lg active:scale-95 before:absolute before:top-0 before:-left-full before:w-full 
+         before:h-full before:bg-gradient-to-r before:from-blue-500 before:to-cyan-500 
+         before:transition-all before:duration-500 before:ease-in-out before:z-[-1] 
+         before:rounded-full hover:before:left-0;
+}
+
+.userButton {
+  @apply relative bg-white rounded-full p-2.5 transition-all duration-300 ease-in-out shadow-md 
+         hover:scale-105 hover:shadow-lg hover:text-white active:scale-95 
+         before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-500 
+         before:to-cyan-500 before:transition-all before:duration-500 before:ease-in-out 
+         before:rounded-full before:scale-0 hover:before:scale-100 before:origin-center before:z-[1];
+}
