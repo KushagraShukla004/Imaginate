@@ -5,7 +5,7 @@ import { User, LogOut } from "lucide-react";
 import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-  //fetching useState using AppContext and AppContextProvider
+  //fetched useState using AppContext and AppContextProvider
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
 
