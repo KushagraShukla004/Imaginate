@@ -1,30 +1,18 @@
-// const Header = () => {
-//   return (
-//     <div className="flex flex-col justify-center items-center text-center my-20 space-y-4">
-//       <div className="text-stone-500 inline-flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-500">
-//         <p>✨The go-to Text-to-Image generator!✨</p>
-//       </div>
-//       <h1 className="font-bold text-4xl max-w-[300px]sm:text-7xl sm:max-w-[590px] mx-auto text-center">
-//         Turn your{" "}
-//         <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-//           Imagination
-//         </span>{" "}
-//         into{" "}
-//         <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
-//           Reality.
-//         </span>
-//       </h1>
-//       <p></p>
-//     </div>
-//   );
-// };
-
-// export default Header;
-
-import { Sparkles, Wand2 } from "lucide-react";
-import { motion } from "motion/react";
+import { Sparkles, Wand2, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect } from "react";
+import { AI_Examples } from "../assets/assets";
 
 const Header = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % AI_Examples.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center text-center mt-12 mb-24 space-y-8">
       {/* Badge */}
@@ -67,7 +55,7 @@ const Header = () => {
         breathtaking artwork that captures your vision perfectly.
       </motion.p>
 
-      {/* Image */}
+      {/* AI Examples Container */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -77,11 +65,55 @@ const Header = () => {
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-30 group-hover:opacity-40 transition duration-1000"></div>
           <div className="relative bg-white rounded-xl overflow-hidden shadow-xl">
-            <img
-              src="/api/placeholder/800/400"
-              alt="AI Generated Art Examples"
-              className="w-full h-full object-cover"
-            />
+            {/* Images Carousel */}
+            <div className="relative aspect-[2/1]">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentIndex}
+                  src={AI_Examples[currentIndex].image}
+                  alt={`AI Example ${currentIndex + 1}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full h-full object-cover"
+                />
+              </AnimatePresence>
+
+              {/* Navigation Controls */}
+              <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button
+                  onClick={() =>
+                    setCurrentIndex((prev) =>
+                      prev === 0 ? AI_Examples.length - 1 : prev - 1
+                    )
+                  }
+                  className="p-2 rounded-full bg-black/30 text-white backdrop-blur-sm hover:bg-black/50 transition-all"
+                >
+                  <ChevronLeft className="size-6" />
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentIndex((prev) => (prev + 1) % AI_Examples.length)
+                  }
+                  className="p-2 rounded-full bg-black/30 text-white backdrop-blur-sm hover:bg-black/50 transition-all"
+                >
+                  <ChevronRight className="size-6" />
+                </button>
+              </div>
+
+              {/* Progress Indicators */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {AI_Examples.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      currentIndex === index ? "bg-white w-6" : "bg-white/50 w-2"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
