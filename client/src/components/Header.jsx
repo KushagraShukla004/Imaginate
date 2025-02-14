@@ -14,7 +14,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center text-center mt-12 mb-24 space-y-8">
+    <div className="flex flex-col justify-center items-center text-center mt-2 space-y-8">
       {/* Badge */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -32,7 +32,7 @@ const Header = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="font-bold text-4xl leading-tight max-w-[300px] sm:text-7xl sm:max-w-[700px] mx-auto text-center"
+        className="font-bold text-4xl leading-tight max-w-[300px] sm:text-5xl sm:max-w-[700px] mx-auto text-center"
       >
         Turn your{" "}
         <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
@@ -49,7 +49,7 @@ const Header = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-gray-600 text-lg sm:text-xl max-w-[600px] mx-auto leading-relaxed"
+        className="text-gray-600 text-lg sm:text-xl max-w-[900px] mx-auto leading-relaxed"
       >
         Create stunning, unique visuals in seconds. Let AI transform your words into
         breathtaking artwork that captures your vision perfectly.
@@ -60,7 +60,7 @@ const Header = () => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.6 }}
-        className="w-full max-w-[800px] mx-auto p-4"
+        className="w-full max-w-5xl mx-auto p-4"
       >
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-30 group-hover:opacity-40 transition duration-1000"></div>
@@ -128,7 +128,7 @@ const Header = () => {
         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-cyan-500"></span>
         <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-30 group-hover:rotate-90"></span>
         <span className="relative flex items-center gap-2">
-          Get Started
+          Generate Your Images
           <Wand2 className="size-5 transition-transform duration-300 group-hover:rotate-12" />
         </span>
       </motion.button>
