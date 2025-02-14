@@ -17,9 +17,11 @@ const Footer = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           />
-          <motion.h1 className="text-2xl font-bold">Imaginate |</motion.h1>
+          <motion.h1 className="text-2xl font-bold pr-2 border-black border-r-2">
+            Imaginate
+          </motion.h1>
           <motion.p
-            className="text-md text-gray-600"
+            className="text-xs text-gray-600 sm:text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

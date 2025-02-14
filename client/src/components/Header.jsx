@@ -1,10 +1,12 @@
 import { Sparkles, Wand2, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AI_Examples } from "../assets/assets";
 
 const Header = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -61,6 +63,9 @@ const Header = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
         className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-all duration-300 ease-in-out rounded-full overflow-hidden shadow-lg hover:shadow-xl"
+        onClick={() => {
+          navigate("/result");
+        }}
       >
         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-cyan-500"></span>
         <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-30 group-hover:rotate-90"></span>

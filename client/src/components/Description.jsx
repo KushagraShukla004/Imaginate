@@ -2,9 +2,11 @@ import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 import AI_Image from "../assets/AI_Image1.jpg";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Description = () => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const element = ref.current; // Store the current value
@@ -96,6 +98,9 @@ const Description = () => {
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-6 inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+          onClick={() => {
+            navigate("/result");
+          }}
         >
           Start Creating
         </motion.button>
