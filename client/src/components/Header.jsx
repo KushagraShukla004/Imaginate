@@ -1,12 +1,14 @@
 import { Sparkles, Wand2, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AI_Examples } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const Header = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+  const { user } = useContext(AppContext);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,7 +66,9 @@ const Header = () => {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-all duration-300 ease-in-out rounded-full overflow-hidden shadow-lg hover:shadow-xl"
         onClick={() => {
-          navigate("/result");
+          {
+            user ? navigate("/result") : navigate("/signup");
+          }
         }}
       >
         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-cyan-500"></span>

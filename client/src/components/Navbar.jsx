@@ -20,6 +20,14 @@ const Navbar = () => {
       <div>
         {user ? (
           <div className="flex items-center gap-2 sm:gap-5">
+            <p
+              onClick={() => {
+                navigate("/result");
+              }}
+              className="text-xl max-sm:hidden font-medium text-gray-700 cursor-pointer"
+            >
+              Generate!
+            </p>
             <button
               onClick={() => {
                 navigate("/buy");

@@ -4,7 +4,7 @@ import Image1 from "./AI_Image1.jpg";
 import Image2 from "./AI_Image2.jpg";
 import Image3 from "./AI_Image3.jpg";
 
-export const assets = { Logo, Star };
+export const assets = { Logo, Star, Image1, Image2, Image3 };
 
 export const AI_Examples = [
   {
