@@ -1,5 +1,6 @@
 import Description from "../components/Description";
 import Header from "../components/Header";
+import PricingSection from "../components/PricingSection";
 import Steps from "../components/Steps";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <Header />
       <Steps />
       <Description />
+      <PricingSection />
     </div>
   );
 };
