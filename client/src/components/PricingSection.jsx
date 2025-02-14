@@ -30,7 +30,7 @@ const PricingSection = () => {
   const pricingPlans = [
     {
       name: "Starter Plan",
-      price: "$0",
+      price: "₹0",
       credits: "5 credits/day",
       description: "Perfect for trying out the platform.",
       buttonText: "Sign Up / Login",
@@ -40,7 +40,7 @@ const PricingSection = () => {
     },
     {
       name: "Basic",
-      price: "$10",
+      price: "₹868",
       credits: "100",
       description: "Best for personal use.",
       features: ["100 credits", "Email support", "Advanced features"],
@@ -48,14 +48,14 @@ const PricingSection = () => {
     },
     {
       name: "Business Plan",
-      price: "$50",
+      price: "₹4,340",
       credits: "500 credits",
       description: "Best for business use.",
       features: ["500 credits", "Priority support", "Team features"],
     },
     {
       name: "Enterprise Plan",
-      price: "$250",
+      price: "₹8,680",
       credits: "5000 credits",
       description: "Best for enterprise use.",
       features: ["5000 credits", "24/7 support", "Custom features"],
