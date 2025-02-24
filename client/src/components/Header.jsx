@@ -8,7 +8,7 @@ import { AppContext } from "../context/AppContext";
 const Header = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
-  const { user } = useContext(AppContext);
+  const { user, setShowLogin } = useContext(AppContext);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -67,7 +67,7 @@ const Header = () => {
         className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-all duration-300 ease-in-out rounded-full overflow-hidden shadow-lg hover:shadow-xl"
         onClick={() => {
           {
-            user ? navigate("/result") : navigate("/signup");
+            user ? navigate("/result") : setShowLogin(true);
           }
         }}
       >
