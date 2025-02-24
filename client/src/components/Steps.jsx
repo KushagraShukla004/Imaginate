@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { useEffect, useState, useRef } from "react";
 import { Camera, WandSparkles, Download } from "lucide-react";
 
 const steps = [
@@ -24,36 +23,13 @@ const steps = [
 ];
 
 const Steps = () => {
-  const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current; // Store the current value
-
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(element);
-
-    return () => {
-      observer.unobserve(element);
-    };
-  }, []);
-
   return (
-    <div ref={ref} className="flex flex-col items-center text-center space-y-8 py-12">
+    <div className="flex flex-col items-center text-center space-y-8 py-12">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.2 }}
         className="text-4xl font-bold"
       >
         How it works
@@ -61,8 +37,9 @@ const Steps = () => {
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
         className="text-gray-600"
       >
         Transform Words Into Stunning Images
@@ -73,8 +50,9 @@ const Steps = () => {
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-md border border-gray-200"
           >
             <div className="p-3 bg-gray-100 rounded-full">{step.icon}</div>
