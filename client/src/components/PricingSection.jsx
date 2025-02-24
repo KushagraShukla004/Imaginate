@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const PricingSection = () => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { user, setShowLogin } = useContext(AppContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const element = ref.current; // Store the current value
@@ -33,14 +36,12 @@ const PricingSection = () => {
       price: "₹0",
       credits: "5 credits/day",
       description: "Perfect for trying out the platform.",
-      buttonText: "Sign Up / Login",
-      buttonLink: "/signup",
       features: ["Daily credits", "Basic support", "Core features"],
       isFree: true,
     },
     {
       name: "Basic",
-      price: "₹868",
+      price: "₹500",
       credits: "100",
       description: "Best for personal use.",
       features: ["100 credits", "Email support", "Advanced features"],
@@ -48,14 +49,14 @@ const PricingSection = () => {
     },
     {
       name: "Business Plan",
-      price: "₹4,340",
+      price: "₹4,500",
       credits: "500 credits",
       description: "Best for business use.",
       features: ["500 credits", "Priority support", "Team features"],
     },
     {
       name: "Enterprise Plan",
-      price: "₹8,680",
+      price: "₹45,680",
       credits: "5000 credits",
       description: "Best for enterprise use.",
       features: ["5000 credits", "24/7 support", "Custom features"],
@@ -150,8 +151,18 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <Link
-                to={plan.isFree ? plan.buttonLink : "/buy"}
+              <button
+                onClick={
+                  //if user is Logged in then check if plan is Free else setShowLogin(true);
+                  user
+                    ? () => {
+                        // if plan isFree and user is Logged-in then when clicking "In Use" button nothing should happen so empty string ("") else(:) navigate to "/buy" page.
+                        plan.isFree ? "" : navigate("/buy");
+                      }
+                    : () => {
+                        setShowLogin(true);
+                      }
+                }
                 className={`block w-full text-center px-6 py-3 rounded-lg font-semibold transition-colors duration-200 ${
                   plan.isFree
                     ? "bg-blue-500 hover:bg-blue-600 text-white"
@@ -160,8 +171,8 @@ const PricingSection = () => {
                     : "bg-gray-900 hover:bg-gray-800 text-white"
                 }`}
               >
-                {plan.isFree ? plan.buttonText : "Buy Credits"}
-              </Link>
+                {!user ? "Sign-Up / Login" : plan.isFree ? "In Use" : "Buy Credits"}
+              </button>
             </div>
           </motion.div>
         ))}

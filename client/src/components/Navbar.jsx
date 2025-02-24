@@ -6,7 +6,7 @@ import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
   //fetched useState using AppContext and AppContextProvider
-  const { user } = useContext(AppContext);
+  const { user, setShowLogin } = useContext(AppContext);
   const navigate = useNavigate();
 
   return (
@@ -57,7 +57,7 @@ const Navbar = () => {
                     <li className="px-4 py-2 hover:bg-gray-50 flex items-center gap-2 cursor-pointer group/item">
                       <LogOut className="size-4 text-gray-400 group-hover/item:text-blue-500 transition-colors" />
                       <span className="text-gray-700 group-hover/item:text-blue-500 transition-colors">
-                        Sign out
+                        Log out
                       </span>
                     </li>
                   </ul>
@@ -73,7 +73,14 @@ const Navbar = () => {
             >
               Pricing
             </p>
-            <button className="NavButton">Login</button>
+            <button
+              className="NavButton"
+              onClick={() => {
+                setShowLogin(true);
+              }}
+            >
+              Login
+            </button>
           </div>
         )}
       </div>
