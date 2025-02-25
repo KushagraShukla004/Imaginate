@@ -9,6 +9,3 @@ userRouter.post("/login", loginUser);
 userRouter.post("/credits", userAuth, userCredits);
 
 export default userRouter;
-
-//localhost:4000/api/user/register
-//localhost:4000/api/user/login
