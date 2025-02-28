@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const generateImage = async (req, res) => {
   try {
+    //Note to remember-1 (at last of this code)
     const { userId, prompt } = req.body;
 
     //find user first because if someone is not loggedin so he cannot write the prompt
@@ -44,12 +45,17 @@ export const generateImage = async (req, res) => {
     const resultImage = `data:image/png;base64,${base64Image}`;
 
     //after generating an image reduce creditBalance from user by 1
-    await userModel.findById(user._id, { creditBalance: user.creditBalance - 1 });
+    // Deduct 1 credit
+    await userModel.findByIdAndUpdate(user._id, { $inc: { creditBalance: -1 } });
 
+    // Fetch updated user balance
+    const updatedUser = await userModel.findById(user._id);
+
+    // Send response
     res.json({
       success: true,
       message: "Image Generated!",
-      creditBalance: user.creditBalance - 1,
+      creditBalance: updatedUser.creditBalance, // Ensure correct balance
       resultImage,
     });
   } catch (error) {
@@ -57,3 +63,11 @@ export const generateImage = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+{
+  /*
+Note-1 : Postman adds Content-Type: application/json automatically making prompt json object to get parsed correctly.
+but 
+other API testing tools sometimes doesnt which leads to prompt being undefined 
+*/
+}

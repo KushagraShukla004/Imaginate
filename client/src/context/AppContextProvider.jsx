@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "./AppContext"; // Import the context
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -9,6 +10,7 @@ const AppContextProvider = ({ children }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [credit, setCredit] = useState(false);
+  const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -41,6 +43,30 @@ const AppContextProvider = ({ children }) => {
     }
   }, [token, loadCreditsData]); // Now loadCreditsData is stable
 
+  const generateImage = async (prompt) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/image/generate-image",
+        { prompt },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        loadCreditsData();
+        return data.resultImage;
+      } else {
+        toast.error(data.message);
+        loadCreditsData();
+        if (data.creditBalance === 0) {
+          navigate("/buy");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   const value = {
     user,
     setUser,
@@ -53,6 +79,7 @@ const AppContextProvider = ({ children }) => {
     backendUrl,
     loadCreditsData,
     logout,
+    generateImage,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
