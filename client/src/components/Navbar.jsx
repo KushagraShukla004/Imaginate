@@ -6,7 +6,7 @@ import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
   //fetched useState using AppContext and AppContextProvider
-  const { user, setShowLogin } = useContext(AppContext);
+  const { user, setShowLogin, credit, logout } = useContext(AppContext);
   const navigate = useNavigate();
 
   return (
@@ -40,9 +40,13 @@ const Navbar = () => {
                 alt="Star"
                 className="size-4 sm:size-6 animate-pulse"
               />
-              <p className="mt-1 text-gray-700 max-sm:text-sm font-medium">Credits: 10</p>
+              <p className="mt-1 text-gray-700 max-sm:text-sm font-medium">
+                Credits: {credit}
+              </p>
             </button>
-            <p className="text-xl max-sm:hidden font-medium text-gray-700">Hi, User!</p>
+            <p className="text-xl max-sm:hidden font-medium text-gray-700">
+              Hi, {user.name}!
+            </p>
             <div className="relative group">
               <button className="userButton">
                 <User className="relative z-10" />
@@ -51,10 +55,13 @@ const Navbar = () => {
                 <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
                   <div className="p-4 border-b border-gray-100">
                     <p className="text-sm text-gray-600">Signed in as</p>
-                    <p className="font-medium text-gray-900">user@example.com</p>
+                    <p className="font-medium text-gray-900">{user.email}</p>
                   </div>
                   <ul className="py-2">
-                    <li className="px-4 py-2 hover:bg-gray-50 flex items-center gap-2 cursor-pointer group/item">
+                    <li
+                      onClick={logout}
+                      className="px-4 py-2 hover:bg-gray-50 flex items-center gap-2 cursor-pointer group/item"
+                    >
                       <LogOut className="size-4 text-gray-400 group-hover/item:text-blue-500 transition-colors" />
                       <span className="text-gray-700 group-hover/item:text-blue-500 transition-colors">
                         Log out

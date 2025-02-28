@@ -30,7 +30,14 @@ const registerUser = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-    res.json({ success: true, token, user: { name: user.name } });
+    res.json({
+      success: true,
+      token,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -51,7 +58,14 @@ const loginUser = async (req, res) => {
     if (isMatch) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-      res.json({ success: true, token, user: { name: user.name } });
+      res.json({
+        success: true,
+        token,
+        user: {
+          name: user.name,
+          email: user.email,
+        },
+      });
     } else {
       return res.json({ success: false, message: "Invalid Credentials" });
     }
@@ -67,7 +81,11 @@ const userCredits = async (req, res) => {
 
     const user = await userModel.findById(userId);
 
-    res.json({ success: true, credits: user.creditBalance, user: { name: user.name } });
+    res.json({
+      success: true,
+      credits: user.creditBalance,
+      user: { name: user.name, email: user.email },
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
