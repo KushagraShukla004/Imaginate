@@ -34,6 +34,7 @@ const registerUser = async (req, res) => {
       success: true,
       token,
       user: {
+        id: user._id,
         name: user.name,
         email: user.email,
       },
@@ -62,6 +63,7 @@ const loginUser = async (req, res) => {
         success: true,
         token,
         user: {
+          id: user._id,
           name: user.name,
           email: user.email,
         },
@@ -84,7 +86,7 @@ const userCredits = async (req, res) => {
     res.json({
       success: true,
       credits: user.creditBalance,
-      user: { name: user.name, email: user.email },
+      user: { id: user._id, name: user.name, email: user.email },
     });
   } catch (error) {
     console.log(error);

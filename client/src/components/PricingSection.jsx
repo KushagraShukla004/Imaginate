@@ -1,10 +1,11 @@
+import { stripePromise } from "../utils/stripe";
 import { motion } from "motion/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
 
 const pricingPlans = [
   {
+    id: "67c41fc43a1aed392297bea8",
     name: "Starter Plan",
     price: "₹0",
     credits: "5 credits/day",
@@ -13,6 +14,7 @@ const pricingPlans = [
     isFree: true,
   },
   {
+    id: "67c41fc43a1aed392297bea9",
     name: "Basic",
     price: "₹500",
     credits: "100",
@@ -21,6 +23,7 @@ const pricingPlans = [
     isPopular: true,
   },
   {
+    id: "67c41fc43a1aed392297beaa",
     name: "Business Plan",
     price: "₹4,500",
     credits: "500 credits",
@@ -28,6 +31,7 @@ const pricingPlans = [
     features: ["500 credits", "Priority support", "Team features"],
   },
   {
+    id: "67c41fc43a1aed392297beab",
     name: "Enterprise Plan",
     price: "₹45,680",
     credits: "5000 credits",
@@ -37,29 +41,59 @@ const pricingPlans = [
 ];
 
 const PricingSection = () => {
-  const { user, setShowLogin } = useContext(AppContext);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { user, setShowLogin, token } = useContext(AppContext);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 },
-    },
-  };
+  const handleCheckout = async (planId) => {
+    if (!user) {
+      setShowLogin(true);
+      return;
+    }
 
-  const item = {
-    hidden: { opacity: 0, y: 40 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/payment/create-checkout-session`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: `${token}`,
+          },
+          body: JSON.stringify({ userId: user.id, planId }),
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to initiate checkout.");
+      }
+
+      if (!data.sessionId) {
+        throw new Error("Session ID is missing from the backend response.");
+      }
+
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+
+      if (error) {
+        console.error("Stripe Checkout Error:", error);
+      }
+    } catch (error) {
+      console.error("Checkout Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Heading Animation */}
       <motion.div
         initial="hidden"
         whileInView="show"
-        variants={item}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.2 }}
         className="text-center mb-12"
@@ -72,18 +106,15 @@ const PricingSection = () => {
         </p>
       </motion.div>
 
-      {/* Pricing Cards Animation */}
       <motion.div
-        variants={container}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
       >
-        {pricingPlans.map((plan, index) => (
+        {pricingPlans.map((plan) => (
           <motion.div
-            key={index}
-            variants={item}
+            key={plan.id}
             whileHover={{ scale: 1.04 }}
             className={`relative rounded-2xl overflow-hidden shadow-lg transition-all duration-300 ${
               plan.isFree
@@ -132,14 +163,7 @@ const PricingSection = () => {
               </ul>
 
               <button
-                onClick={() => {
-                  //if user is Logged in then check if plan is not Free (if true then navigate to "/buy") else setShowLogin(true);
-                  if (!user) {
-                    setShowLogin(true);
-                  } else if (!plan.isFree) {
-                    navigate("/buy");
-                  }
-                }}
+                onClick={() => (plan.isFree ? null : handleCheckout(plan.id))}
                 className={`block w-full text-center px-6 py-3 rounded-lg font-semibold transition-colors duration-200 ${
                   plan.isFree
                     ? "bg-blue-500 hover:bg-blue-600 text-white"
@@ -147,8 +171,13 @@ const PricingSection = () => {
                     ? "bg-orange-500 hover:bg-orange-600 text-white"
                     : "bg-gray-900 hover:bg-gray-800 text-white"
                 }`}
+                disabled={loading}
               >
-                {!user ? "Sign-Up / Login" : plan.isFree ? "In Use" : "Buy Credits"}
+                {loading && !plan.isFree
+                  ? "Processing..."
+                  : plan.isFree
+                  ? "In Use"
+                  : "Buy Credits"}
               </button>
             </div>
           </motion.div>

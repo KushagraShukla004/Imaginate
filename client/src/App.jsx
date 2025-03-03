@@ -8,6 +8,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Authentication from "./components/Authentication";
 import { AppContext } from "./context/AppContext";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailed from "./pages/PaymentFailed";
 
 const App = () => {
   const { showLogin } = useContext(AppContext);
@@ -25,6 +27,8 @@ const App = () => {
         <Route path="/result" element={<Result />} />
         {/*props to call onClick event of login button in BuyCredit page */}
         <Route path="/buy" element={<BuyCredit />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-failed" element={<PaymentFailed />} />
       </Routes>
       <Footer />
     </div>

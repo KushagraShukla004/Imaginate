@@ -9,7 +9,7 @@ const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [credit, setCredit] = useState(false);
+  const [credit, setCredit] = useState(null);
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;

@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@stripe/react-stripe-js':
+        specifier: ^3.1.1
+        version: 3.1.1(@stripe/stripe-js@5.7.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@stripe/stripe-js':
+        specifier: ^5.7.0
+        version: 5.7.0
       axios:
         specifier: ^1.8.1
         version: 1.8.1
@@ -499,6 +505,17 @@ packages:
     resolution: {integrity: sha512-0PVwmgzZ8+TZ9oGBmdZoQVXflbvuwzN/HRclujpl4N/q3i+y0lqLw8n1bXA8ru3sApDjlmONaNAuYr38y1Kr9w==}
     cpu: [x64]
     os: [win32]
+
+  '@stripe/react-stripe-js@3.1.1':
+    resolution: {integrity: sha512-+JzYFgUivVD7koqYV7LmLlt9edDMAwKH7XhZAHFQMo7NeRC+6D2JmQGzp9tygWerzwttwFLlExGp4rAOvD6l9g==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+      react: '>=16.8.0 <20.0.0'
+      react-dom: '>=16.8.0 <20.0.0'
+
+  '@stripe/stripe-js@5.7.0':
+    resolution: {integrity: sha512-9pCOK3AH75hDKPRyJm9PO5TA3aHZ/PVlIBOZwpi6mABxwr6mMIBjqgZEUThIE5zFEkOmaKXwxBgTsVKC29x+mQ==}
+    engines: {node: '>=12.16'}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2172,6 +2189,15 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.34.6':
     optional: true
+
+  '@stripe/react-stripe-js@3.1.1(@stripe/stripe-js@5.7.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@stripe/stripe-js': 5.7.0
+      prop-types: 15.8.1
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
+  '@stripe/stripe-js@5.7.0': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
