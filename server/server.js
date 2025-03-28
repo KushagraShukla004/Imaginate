@@ -15,7 +15,7 @@ await connectDB();
 // ✅ CORS Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // Update for production
+    origin: ["http://localhost:5173", process.env.CLIENT_URL],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "token"],
