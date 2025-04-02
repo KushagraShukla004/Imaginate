@@ -13,14 +13,20 @@ const app = express();
 await connectDB();
 
 // ✅ CORS Middleware
-app.use(
-  cors({
-    origin: ["http://localhost:5173" || "https://imaginateio.vercel.app"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "token"],
-  })
-);
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"]; // Use CLIENT_URL from .env
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // ✅ JSON Middleware
 app.use(express.json());
