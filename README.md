@@ -27,11 +27,27 @@
 
 ### Home Page
 
-![Home Page](client/public/Imaginate.png)
+<img src="SS/HomePage.png" alt="Home Page" width="800px" height="auto">
 
 ### AI-Generated Image Example
 
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="SS/download.png" alt="Generated Image 1" width="300px" height="auto">
+  <img src="SS/Generated%20Image.png" alt="Generated Image 2" width="300px" height="auto">
+  <img src="client/src/assets/AI_Image1.jpg" alt="Generated Image 3" width="300px" height="auto">
+  <img src="client/src/assets/AI_Image3.jpg" alt="Generated Image 4" width="300px" height="auto">
+</div>
+
+### Home Page
+
+![Home Page](SS/HomePage.png)
+
+### AI-Generated Image Example
+
+![Generated Image](SS/download.png)
+![Generated Image](SS/Generated%20Image.png)
 ![Generated Image](client/src/assets/AI_Image1.jpg)
+![Generated Image](client/src/assets/AI_Image3.jpg)
 
 ---
 
