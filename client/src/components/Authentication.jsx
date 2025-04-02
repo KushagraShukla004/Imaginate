@@ -40,7 +40,6 @@ const Authentication = () => {
       if (data.success) {
         setToken(data.token);
         setUser(data.user);
-        console.log("data.token: ", data.token);
 
         //set Token for login state even after refresh
         localStorage.setItem("token", data.token);
