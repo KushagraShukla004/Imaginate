@@ -38,17 +38,6 @@
   <img src="client/src/assets/AI_Image3.jpg" alt="Generated Image 4" width="300px" height="auto">
 </div>
 
-### Home Page
-
-![Home Page](SS/HomePage.png)
-
-### AI-Generated Image Example
-
-![Generated Image](SS/download.png)
-![Generated Image](SS/Generated%20Image.png)
-![Generated Image](client/src/assets/AI_Image1.jpg)
-![Generated Image](client/src/assets/AI_Image3.jpg)
-
 ---
 
 ## 📦 Tech Stack
