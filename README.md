@@ -113,6 +113,6 @@ This project is licensed under the GNU General Public License v3.0.[GNU License]
 
 For any inquiries or feedback, feel free to reach out:
 
-- **Email**: [Kushagra Shukla](shuklasamrat007@gmail.com)
+- **Email**: <a href="mailto:shuklasamrat007@gmail.com">Kushagra's mail</a>
 - **GitHub**: [KushagraShukla004](https://github.com/KushagraShukla004)
 - **LinkedIn**: [Kushagra Shukla](https://www.linkedin.com/in/kushagra-shukla101/)
